@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup --watch --config"
+    "build": "rollup --watch --config",
+    "sass": "sass --watch --style=compressed sass/index.scss public/bundle.css"
   },
   "keywords": [],
   "author": "",
