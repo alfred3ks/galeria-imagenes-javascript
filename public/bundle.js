@@ -479,7 +479,7 @@ var dataCategorias = {
 const { categorias } = dataCategorias;
 
 // Obtenemos del HTMl donde vamos a mostrar la data:
-const contenedorCategorias = document.getElementById('categorias');
+const contenedorCategorias$1 = document.getElementById('categorias');
 
 // Iteramos para mostrar la información:
 categorias.forEach((categoria) => {
@@ -499,7 +499,7 @@ categorias.forEach((categoria) => {
   a.dataset.categoria = categoria.id;
 
   // Agregamos al contenedor todas las categorias:
-  contenedorCategorias.append(a);
+  contenedorCategorias$1.append(a);
 });
 
 /*
@@ -510,3 +510,24 @@ Aquí vemos como crear un atributo personalizado, con ese atributo es que vamos 
   a.dataset.categoria = categoria.id;
 
 */
+
+/*
+Creamos el evento para al hacer click sobre las categorias.
+OJO Aqui vemos como podemos delegar eventos, vamos desde el contenedor padre a los hijos
+*/
+
+const contenedorCategorias = document.getElementById('categorias');
+const galeria = document.getElementById('galeria');
+
+contenedorCategorias.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  // Vamos a comprobar que hagamos click sobre la imagen: Para eso vamos a usar el metodo .closest() el cual nos permite buscar elementos:
+  console.log(e.target.closest('a'));
+  if (e.target.closest('a')) {
+    // Aplicamos esta clase a la galeria:
+    galeria.classList.add('galeria--active');
+    // Quitamos el scroll: OJO Ponerlo en el portfolio:
+    document.body.style.overflow = 'hidden';
+  }
+});
