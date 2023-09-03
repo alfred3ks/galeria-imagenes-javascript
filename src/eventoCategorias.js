@@ -27,8 +27,6 @@ contenedorCategorias.addEventListener('click', (e) => {
 
     // Recorremos para mostrar esa fotos en el carrusel:
     fotos.forEach((foto) => {
-      console.log(foto.ruta);
-
       const slide = `
         <a href="#" class="galeria__carousel-slide">
           <img

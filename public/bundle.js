@@ -517,7 +517,7 @@ OJO Aqui vemos como podemos delegar eventos, vamos desde el contenedor padre a l
 */
 
 const contenedorCategorias = document.getElementById('categorias');
-const galeria = document.getElementById('galeria');
+const galeria$2 = document.getElementById('galeria');
 
 contenedorCategorias.addEventListener('click', (e) => {
   e.preventDefault();
@@ -526,7 +526,7 @@ contenedorCategorias.addEventListener('click', (e) => {
   // console.log(e.target.closest('a'));
   if (e.target.closest('a')) {
     // Aplicamos esta clase a la galeria:
-    galeria.classList.add('galeria--active');
+    galeria$2.classList.add('galeria--active');
     // Quitamos el scroll: OJO Ponerlo en el portfolio:
     document.body.style.overflow = 'hidden';
 
@@ -538,8 +538,6 @@ contenedorCategorias.addEventListener('click', (e) => {
 
     // Recorremos para mostrar esa fotos en el carrusel:
     fotos.forEach((foto) => {
-      console.log(foto.ruta);
-
       const slide = `
         <a href="#" class="galeria__carousel-slide">
           <img
@@ -549,13 +547,53 @@ contenedorCategorias.addEventListener('click', (e) => {
           />
         </a>`;
       // Accedemos al carussel: Buscamos con querySelector una clase:
-      const carrusel = galeria.querySelector('.galeria__carousel-slides');
+      const carrusel = galeria$2.querySelector('.galeria__carousel-slides');
       carrusel.innerHTML += slide;
 
       // A la primera imagen de la galeria ponemos esta clase:
-      galeria
+      galeria$2
         .querySelector('.galeria__carousel-slide')
         .classList.add('galeria__carousel-slide--active');
     });
+  }
+});
+
+// Accedemos a la galeria:
+const galeria$1 = document.getElementById('galeria');
+
+// Creamos una funcion para cerrar la galeria:
+const cerrarGaleria = () => {
+  galeria$1.classList.remove('galeria--active');
+  // Devolvemos el scroll a la página:
+  document.body.style.overflow = '';
+};
+
+/*
+Eventos de la Galeria:
+*/
+// Accedemos a la galeria:
+const galeria = document.getElementById('galeria');
+
+// Creamos el evento:
+galeria.addEventListener('click', (e) => {
+  // Vemos toda la galeria:
+  // console.log(e.target);
+
+  // Vamos a detectar el boton: Cada boton tiene un atributo personalizado asi accederemos a el:
+  // Usamos el método closest()
+  // El método closest() busca de abajo hacia arriba hasta que encuentra lo que le pasamos por parametro.
+  // console.log(e.target.closest('button'));
+  const botonPulsado = e.target.closest('button');
+
+  // Con dataset podemos acceder a los atributos personalizados que comienzan con el nombre data-algo:
+  // Aqui vemos algo interesante, el ?, si ese elemento tiene la propiedad dataset, lo pongo porque da error si no lo lleva al pulsar sobre otro elemento que no tiene esa propiedad:
+  if (botonPulsado?.dataset?.accion === 'cerrar-galeria') {
+    console.log(botonPulsado.dataset.accion);
+
+    // Buscamos dentro de la galeria un boton que tenga esa clase:
+    // Aplicamos el estilos para cerrar la galeria: Dos formas aqui directamente o por medio de una función externa:
+    // galeria.classList.remove('galeria--active');
+    // document.body.style.overflow = ('');
+    cerrarGaleria();
   }
 });
