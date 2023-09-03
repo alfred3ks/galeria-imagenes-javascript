@@ -20,19 +20,23 @@ contenedorCategorias.addEventListener('click', (e) => {
     document.body.style.overflow = 'hidden';
 
     // Asi capturamos la categoria del data-set al hacer click:
-    const categoriaActiva = e.target.dataset.categoria;
+    const categoriaActiva = e.target.closest('a').dataset.categoria;
 
     // Asi sacamos las fotos desde data:
     const fotos = dataFotos.fotos[categoriaActiva];
 
-    // Recorremos para mostrar esa fotos en el carrusel:
+    // Limpiamos el carussel para cargar solo la cateria:
+    const carrusel = galeria.querySelector('.galeria__carousel-slides');
+    carrusel.innerHTML = '';
+
+    // Ahora ya recorremos las BD para mostrar esa fotos en el carrusel:
     fotos.forEach((foto) => {
       const slide = `
         <a href="#" class="galeria__carousel-slide">
           <img
             class="galeria__carousel-image"
             src="${foto.ruta}"
-            alt="${foto.nombre}"
+            alt="${foto.nombre}" 
           />
         </a>`;
       // Accedemos al carussel: Buscamos con querySelector una clase:
