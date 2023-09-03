@@ -15,6 +15,10 @@ const categoriaActiva = e.target.dataset.categoria;
 // Asi sacamos las fotos desde data:
 const fotos = dataFotos.fotos[categoriaActiva];
 
+// Limpiamos el carussel para cargar solo la cateria:
+const carrusel = galeria.querySelector('.galeria__carousel-slides');
+carrusel.innerHTML = '';
+
 // Recorremos para mostrar esa fotos en el carrusel:
 fotos.forEach((foto) => {
   console.log(foto.ruta);

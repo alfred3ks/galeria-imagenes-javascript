@@ -1,4 +1,5 @@
 /*
+
 Vamos a simular una BD de las imagenes, la información de las imagenes, su ruta, su descripcion etc:
 Creamos dentro de src una carpeta llamada data.
 

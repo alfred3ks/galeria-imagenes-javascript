@@ -1,4 +1,5 @@
 /*
+
 Pasos para hacer el proyecto: Todo esto ya teniendo el codigo HTML ya listo y CSS.
 
 - Instalamos y configuramos rollup:

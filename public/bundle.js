@@ -511,6 +511,30 @@ Aquí vemos como crear un atributo personalizado, con ese atributo es que vamos 
 
 */
 
+// Creamos funcion para cargar imagen activa:
+const galeria$3 = document.getElementById('galeria');
+const cargarImagen = (id, nombre, ruta, descripcion) => {
+  // Agregamos un id personalizado a la imagen:
+  (galeria$3.querySelector(
+    '.galeria__imagen'
+  ).dataset.idImagen = id);
+
+  // Buscamos dentro de la galeria la imagen activa:
+  const imagenActiva = galeria$3.querySelector('.galeria__imagen');
+  imagenActiva.src = ruta;
+
+  // Cargamos titulo imagen:
+  const tituloImagen = galeria$3.querySelector('.galeria__titulo');
+  tituloImagen.innerText = nombre;
+
+  // Cargamos la descripcion de la imagen:
+  const descriptionImagen = galeria$3.querySelector(
+    '.galeria__descripcion-imagen-activa'
+  );
+
+  descriptionImagen.innerText = descripcion;
+};
+
 /*
 Creamos el evento para al hacer click sobre las categorias.
 OJO Aqui vemos como podemos delegar eventos, vamos desde el contenedor padre a los hijos
@@ -535,10 +559,15 @@ contenedorCategorias.addEventListener('click', (e) => {
 
     // Asi sacamos las fotos desde data:
     const fotos = dataFotos.fotos[categoriaActiva];
+    console.log(fotos);
+
+    // Cargamos la imagen activa a la galeria:
+    const { id, nombre, ruta, descripcion } = fotos[0];
+    cargarImagen(id, nombre, ruta, descripcion);
 
     // Limpiamos el carussel para cargar solo la cateria:
-    const carrusel = galeria$2.querySelector('.galeria__carousel-slides');
-    carrusel.innerHTML = '';
+    const carrousel = galeria$2.querySelector('.galeria__carousel-slides');
+    carrousel.innerHTML = '';
 
     // Ahora ya recorremos las BD para mostrar esa fotos en el carrusel:
     fotos.forEach((foto) => {
@@ -547,7 +576,7 @@ contenedorCategorias.addEventListener('click', (e) => {
           <img
             class="galeria__carousel-image"
             src="${foto.ruta}"
-            alt="${foto.nombre}" 
+            alt="${foto.nombre}"
           />
         </a>`;
       // Accedemos al carussel: Buscamos con querySelector una clase:

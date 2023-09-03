@@ -1,8 +1,14 @@
 /*
-Creamos el evento para al hacer click sobre las categorias.
-OJO Aqui vemos como podemos delegar eventos, vamos desde el contenedor padre a los hijos
+
+Vamos a ver como cargar la imagen activa en la galeria.
+
+Para esto vamos dentro de la carpet src/galeria vamos a crear un archivo llamado cargarImagenActiva.js donde vamos a crear una funcion para mostrar la imagen activa en la galeria.
+
+Esta funcion la vamos usar dentro del archivo eventosGaleria.js porque es donde aqui esta abriendo la galeria.
+
 */
 
+// eventoCategorias.js:
 // Accedemos a las fotos que estan en data:
 import dataFotos from './data/fotos.js';
 import { cargarImagen } from './galeria/cargarImagenActiva.js';
@@ -27,7 +33,7 @@ contenedorCategorias.addEventListener('click', (e) => {
     const fotos = dataFotos.fotos[categoriaActiva];
     console.log(fotos);
 
-    // Cargamos la imagen activa a la galeria:
+    // 🎯 Cargamos la imagen activa a la galeria:
     const { id, nombre, ruta, descripcion } = fotos[0];
     cargarImagen(id, nombre, ruta, descripcion);
 
@@ -56,3 +62,30 @@ contenedorCategorias.addEventListener('click', (e) => {
     });
   }
 });
+
+// 🎯 cargarImagenActiva.js:
+// Creamos funcion para cargar imagen activa:
+// const galeria = document.getElementById('galeria');
+const cargarImagen = (id, nombre, ruta, descripcion) => {
+  // Agregamos un id personalizado a la imagen:
+  const idImagenGaleria = (galeria.querySelector(
+    '.galeria__imagen'
+  ).dataset.idImagen = id);
+
+  // Buscamos dentro de la galeria la imagen activa:
+  const imagenActiva = galeria.querySelector('.galeria__imagen');
+  imagenActiva.src = ruta;
+
+  // Cargamos titulo imagen:
+  const tituloImagen = galeria.querySelector('.galeria__titulo');
+  tituloImagen.innerText = nombre;
+
+  // Cargamos la descripcion de la imagen:
+  const descriptionImagen = galeria.querySelector(
+    '.galeria__descripcion-imagen-activa'
+  );
+
+  descriptionImagen.innerText = descripcion;
+};
+
+export { cargarImagen };
