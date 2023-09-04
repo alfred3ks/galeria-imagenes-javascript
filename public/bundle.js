@@ -511,7 +511,7 @@ Aquí vemos como crear un atributo personalizado, con ese atributo es que vamos 
 
 */
 
-// Creamos funcion para cargar imagen activa:
+// 📌 Creamos funcion para cargar imagen activa:
 const galeria$3 = document.getElementById('galeria');
 const cargarImagen = (id, nombre, ruta, descripcion) => {
   // Agregamos un id personalizado a la imagen:
@@ -564,6 +564,47 @@ const cargarImagen = (id, nombre, ruta, descripcion) => {
     imageSlide[indexImagenActual].classList.add(
       'galeria__carousel-slide--active'
     );
+  }
+};
+
+// 📌 Creamos las funciones para los botones de adelante atras de la galeria:
+const cargarAnteriorSiguiente = (direccion) => {
+  const categoriaActual = galeria$3.dataset.categoria;
+  // console.log(categoriaActual);
+  const imagenActualCategoria = dataFotos.fotos[categoriaActual];
+  // console.log(imagenActual);
+  const idImagenActual = parseInt(
+    galeria$3.querySelector('.galeria__imagen').dataset.idImagen
+  );
+  // console.log(idImagenActual);
+
+  // Recorremos la imagen dentro de la BD que coincida con el idImagenActual y obtenemos su index:
+  let indexImagenActual;
+  imagenActualCategoria.forEach((foto, index) => {
+    if (foto.id === idImagenActual) {
+      indexImagenActual = index;
+      // console.log(indexImagenActual);
+    }
+  });
+
+  if (direccion === 'siguiente') {
+    // console.log('siguiente Imagen');
+    // console.log(imagenActualCategoria[indexImagenActual + 1]);
+
+    if (imagenActualCategoria[indexImagenActual + 1]) {
+      const { id, nombre, ruta, descripcion } =
+        imagenActualCategoria[indexImagenActual + 1];
+      cargarImagen(id, nombre, ruta, descripcion);
+    }
+  } else if (direccion === 'anterior') {
+    // console.log('anterior Imagen');
+    // console.log(imagenActualCategoria[indexImagenActual - 1]);
+
+    if (imagenActualCategoria[indexImagenActual - 1]) {
+      const { id, nombre, ruta, descripcion } =
+        imagenActualCategoria[indexImagenActual - 1];
+      cargarImagen(id, nombre, ruta, descripcion);
+    }
   }
 };
 
@@ -681,9 +722,11 @@ galeria.addEventListener('click', (e) => {
   // El método closest() busca de abajo hacia arriba hasta que encuentra lo que le pasamos por parametro.
   // console.log(e.target.closest('button'));
   const botonPulsado = e.target.closest('button');
+  // console.log(botonPulsado);
 
-  // Con dataset podemos acceder a los atributos personalizados que comienzan con el nombre data-algo:
+  // 📌 Con dataset podemos acceder a los atributos personalizados que comienzan con el nombre data-algo:
   // Aqui vemos algo interesante, el ?, si ese elemento tiene la propiedad dataset, lo pongo porque da error si no lo lleva al pulsar sobre otro elemento que no tiene esa propiedad:
+  // - - - CERRAR GALERIA:
   if (botonPulsado?.dataset?.accion === 'cerrar-galeria') {
     // console.log(botonPulsado.dataset.accion);
 
@@ -696,6 +739,7 @@ galeria.addEventListener('click', (e) => {
 
   // 📌 Agregamos detectamos cuando hacemos click al corousel:
   // console.log(e.target.dataset.id);
+  // - - - CAROUSEL SLIDE CLICK
   if (e.target.dataset.id) {
     // console.log(e.target.dataset.id);
     const id = parseInt(e.target.dataset.id);
@@ -703,5 +747,17 @@ galeria.addEventListener('click', (e) => {
     const categoriaActiva = galeria.dataset.categoria;
     // Cargamos la imagen: Con una nueva funcion:
     slideClick(id, categoriaActiva);
+  }
+
+  // 📌 Accedemos al boton de imagen siguiente:
+  if (botonPulsado?.dataset?.accion === 'siguiente-imagen') {
+    // console.log('Siguiente');
+    cargarAnteriorSiguiente('siguiente');
+  }
+
+  // 📌 Accedemos al boton de imagen anterior:
+  if (botonPulsado?.dataset?.accion === 'anterior-imagen') {
+    // console.log('Anterior');
+    cargarAnteriorSiguiente('anterior');
   }
 });

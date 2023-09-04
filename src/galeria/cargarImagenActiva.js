@@ -1,6 +1,6 @@
 import dataFotos from '../data/fotos';
 
-// Creamos funcion para cargar imagen activa:
+// 📌 Creamos funcion para cargar imagen activa:
 const galeria = document.getElementById('galeria');
 const cargarImagen = (id, nombre, ruta, descripcion) => {
   // Agregamos un id personalizado a la imagen:
@@ -56,4 +56,45 @@ const cargarImagen = (id, nombre, ruta, descripcion) => {
   }
 };
 
-export { cargarImagen };
+// 📌 Creamos las funciones para los botones de adelante atras de la galeria:
+const cargarAnteriorSiguiente = (direccion) => {
+  const categoriaActual = galeria.dataset.categoria;
+  // console.log(categoriaActual);
+  const imagenActualCategoria = dataFotos.fotos[categoriaActual];
+  // console.log(imagenActual);
+  const idImagenActual = parseInt(
+    galeria.querySelector('.galeria__imagen').dataset.idImagen
+  );
+  // console.log(idImagenActual);
+
+  // Recorremos la imagen dentro de la BD que coincida con el idImagenActual y obtenemos su index:
+  let indexImagenActual;
+  imagenActualCategoria.forEach((foto, index) => {
+    if (foto.id === idImagenActual) {
+      indexImagenActual = index;
+      // console.log(indexImagenActual);
+    }
+  });
+
+  if (direccion === 'siguiente') {
+    // console.log('siguiente Imagen');
+    // console.log(imagenActualCategoria[indexImagenActual + 1]);
+
+    if (imagenActualCategoria[indexImagenActual + 1]) {
+      const { id, nombre, ruta, descripcion } =
+        imagenActualCategoria[indexImagenActual + 1];
+      cargarImagen(id, nombre, ruta, descripcion);
+    }
+  } else if (direccion === 'anterior') {
+    // console.log('anterior Imagen');
+    // console.log(imagenActualCategoria[indexImagenActual - 1]);
+
+    if (imagenActualCategoria[indexImagenActual - 1]) {
+      const { id, nombre, ruta, descripcion } =
+        imagenActualCategoria[indexImagenActual - 1];
+      cargarImagen(id, nombre, ruta, descripcion);
+    }
+  }
+};
+
+export { cargarImagen, cargarAnteriorSiguiente };

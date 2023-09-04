@@ -3,6 +3,7 @@ Eventos de la Galeria:
 */
 // Accedemos a la galeria:
 const galeria = document.getElementById('galeria');
+import { cargarAnteriorSiguiente } from './cargarImagenActiva';
 import cerrarGaleria from './cerrarGaleria';
 import slideClick from './slideClick';
 
@@ -16,9 +17,11 @@ galeria.addEventListener('click', (e) => {
   // El método closest() busca de abajo hacia arriba hasta que encuentra lo que le pasamos por parametro.
   // console.log(e.target.closest('button'));
   const botonPulsado = e.target.closest('button');
+  // console.log(botonPulsado);
 
-  // Con dataset podemos acceder a los atributos personalizados que comienzan con el nombre data-algo:
+  // 📌 Con dataset podemos acceder a los atributos personalizados que comienzan con el nombre data-algo:
   // Aqui vemos algo interesante, el ?, si ese elemento tiene la propiedad dataset, lo pongo porque da error si no lo lleva al pulsar sobre otro elemento que no tiene esa propiedad:
+  // - - - CERRAR GALERIA:
   if (botonPulsado?.dataset?.accion === 'cerrar-galeria') {
     // console.log(botonPulsado.dataset.accion);
 
@@ -31,6 +34,7 @@ galeria.addEventListener('click', (e) => {
 
   // 📌 Agregamos detectamos cuando hacemos click al corousel:
   // console.log(e.target.dataset.id);
+  // - - - CAROUSEL SLIDE CLICK
   if (e.target.dataset.id) {
     // console.log(e.target.dataset.id);
     const id = parseInt(e.target.dataset.id);
@@ -38,5 +42,17 @@ galeria.addEventListener('click', (e) => {
     const categoriaActiva = galeria.dataset.categoria;
     // Cargamos la imagen: Con una nueva funcion:
     slideClick(id, categoriaActiva);
+  }
+
+  // 📌 Accedemos al boton de imagen siguiente:
+  if (botonPulsado?.dataset?.accion === 'siguiente-imagen') {
+    // console.log('Siguiente');
+    cargarAnteriorSiguiente('siguiente');
+  }
+
+  // 📌 Accedemos al boton de imagen anterior:
+  if (botonPulsado?.dataset?.accion === 'anterior-imagen') {
+    // console.log('Anterior');
+    cargarAnteriorSiguiente('anterior');
   }
 });
