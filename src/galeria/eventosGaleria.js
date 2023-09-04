@@ -4,6 +4,7 @@ Eventos de la Galeria:
 // Accedemos a la galeria:
 const galeria = document.getElementById('galeria');
 import cerrarGaleria from './cerrarGaleria';
+import sliceClick from './sliceClick';
 
 // Creamos el evento:
 galeria.addEventListener('click', (e) => {
@@ -26,5 +27,16 @@ galeria.addEventListener('click', (e) => {
     // galeria.classList.remove('galeria--active');
     // document.body.style.overflow = ('');
     cerrarGaleria();
+  }
+
+  // 📌 Agregamos detectamos cuando hacemos click al corousel:
+  // console.log(e.target.dataset.id);
+  if (e.target.dataset.id) {
+    // console.log(e.target.dataset.id);
+    const id = parseInt(e.target.dataset.id);
+    // Atributo personalizado agregado en eventoCategorias.js:
+    const categoriaActiva = galeria.dataset.categoria;
+    // Cargamos la imagen: Con una nueva funcion:
+    sliceClick(id, categoriaActiva);
   }
 });

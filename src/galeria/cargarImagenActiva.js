@@ -2,9 +2,8 @@
 const galeria = document.getElementById('galeria');
 const cargarImagen = (id, nombre, ruta, descripcion) => {
   // Agregamos un id personalizado a la imagen:
-  const idImagenGaleria = (galeria.querySelector(
-    '.galeria__imagen'
-  ).dataset.idImagen = id);
+  const idImagenGaleria = galeria.querySelector('.galeria__imagen');
+  idImagenGaleria.dataset.idImagen = id;
 
   // Buscamos dentro de la galeria la imagen activa:
   const imagenActiva = galeria.querySelector('.galeria__imagen');
@@ -18,7 +17,6 @@ const cargarImagen = (id, nombre, ruta, descripcion) => {
   const descriptionImagen = galeria.querySelector(
     '.galeria__descripcion-imagen-activa'
   );
-
   descriptionImagen.innerText = descripcion;
 };
 

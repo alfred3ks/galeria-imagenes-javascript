@@ -515,9 +515,8 @@ Aquí vemos como crear un atributo personalizado, con ese atributo es que vamos 
 const galeria$3 = document.getElementById('galeria');
 const cargarImagen = (id, nombre, ruta, descripcion) => {
   // Agregamos un id personalizado a la imagen:
-  (galeria$3.querySelector(
-    '.galeria__imagen'
-  ).dataset.idImagen = id);
+  const idImagenGaleria = galeria$3.querySelector('.galeria__imagen');
+  idImagenGaleria.dataset.idImagen = id;
 
   // Buscamos dentro de la galeria la imagen activa:
   const imagenActiva = galeria$3.querySelector('.galeria__imagen');
@@ -531,7 +530,6 @@ const cargarImagen = (id, nombre, ruta, descripcion) => {
   const descriptionImagen = galeria$3.querySelector(
     '.galeria__descripcion-imagen-activa'
   );
-
   descriptionImagen.innerText = descripcion;
 };
 
@@ -557,6 +555,9 @@ contenedorCategorias.addEventListener('click', (e) => {
     // Asi capturamos la categoria del data-set al hacer click:
     const categoriaActiva = e.target.closest('a').dataset.categoria;
 
+    // Colocamos un atributo personalizado a la imagen activa:
+    galeria$2.dataset.categoria = categoriaActiva;
+
     // Asi sacamos las fotos desde data:
     const fotos = dataFotos.fotos[categoriaActiva];
     console.log(fotos);
@@ -576,6 +577,7 @@ contenedorCategorias.addEventListener('click', (e) => {
           <img
             class="galeria__carousel-image"
             src="${foto.ruta}"
+            data-id="${foto.id}"
             alt="${foto.nombre}"
           />
         </a>`;
@@ -599,6 +601,34 @@ const cerrarGaleria = () => {
   galeria$1.classList.remove('galeria--active');
   // Devolvemos el scroll a la página:
   document.body.style.overflow = '';
+};
+
+// Funcion para cargar la imagen del slice en la galeria:
+const sliceClick = (id, categoriaActiva) => {
+  // console.log(id);
+  // console.log(categoriaActiva);
+
+  let idBD, nombre, descripcion, ruta;
+
+  dataFotos.fotos[categoriaActiva].forEach((foto) => {
+    // Muestra todas las fotos de la categoria activa:
+    // console.log(foto);
+    // console.log(foto.id);
+
+    if (foto.id === id) {
+      // console.log(foto.id);
+      // console.log(foto.nombre);
+      // console.log(foto.descripcion);
+      // console.log(foto.ruta);
+      idBD = foto.id;
+      nombre = foto.nombre;
+      descripcion = foto.descripcion;
+      ruta = foto.ruta;
+
+      // Usamos la funcion de cargar imagen:
+      cargarImagen(idBD, nombre, ruta, descripcion);
+    }
+  });
 };
 
 /*
@@ -628,5 +658,16 @@ galeria.addEventListener('click', (e) => {
     // galeria.classList.remove('galeria--active');
     // document.body.style.overflow = ('');
     cerrarGaleria();
+  }
+
+  // 📌 Agregamos detectamos cuando hacemos click al corousel:
+  // console.log(e.target.dataset.id);
+  if (e.target.dataset.id) {
+    // console.log(e.target.dataset.id);
+    const id = parseInt(e.target.dataset.id);
+    // Atributo personalizado agregado en eventoCategorias.js:
+    const categoriaActiva = galeria.dataset.categoria;
+    // Cargamos la imagen: Con una nueva funcion:
+    sliceClick(id, categoriaActiva);
   }
 });

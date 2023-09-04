@@ -23,6 +23,9 @@ contenedorCategorias.addEventListener('click', (e) => {
     // Asi capturamos la categoria del data-set al hacer click:
     const categoriaActiva = e.target.closest('a').dataset.categoria;
 
+    // Colocamos un atributo personalizado a la imagen activa:
+    galeria.dataset.categoria = categoriaActiva;
+
     // Asi sacamos las fotos desde data:
     const fotos = dataFotos.fotos[categoriaActiva];
     console.log(fotos);
@@ -42,6 +45,7 @@ contenedorCategorias.addEventListener('click', (e) => {
           <img
             class="galeria__carousel-image"
             src="${foto.ruta}"
+            data-id="${foto.id}"
             alt="${foto.nombre}"
           />
         </a>`;
