@@ -4,7 +4,7 @@ Eventos de la Galeria:
 // Accedemos a la galeria:
 const galeria = document.getElementById('galeria');
 import cerrarGaleria from './cerrarGaleria';
-import sliceClick from './sliceClick';
+import slideClick from './slideClick';
 
 // Creamos el evento:
 galeria.addEventListener('click', (e) => {
@@ -20,7 +20,7 @@ galeria.addEventListener('click', (e) => {
   // Con dataset podemos acceder a los atributos personalizados que comienzan con el nombre data-algo:
   // Aqui vemos algo interesante, el ?, si ese elemento tiene la propiedad dataset, lo pongo porque da error si no lo lleva al pulsar sobre otro elemento que no tiene esa propiedad:
   if (botonPulsado?.dataset?.accion === 'cerrar-galeria') {
-    console.log(botonPulsado.dataset.accion);
+    // console.log(botonPulsado.dataset.accion);
 
     // Buscamos dentro de la galeria un boton que tenga esa clase:
     // Aplicamos el estilos para cerrar la galeria: Dos formas aqui directamente o por medio de una función externa:
@@ -37,6 +37,6 @@ galeria.addEventListener('click', (e) => {
     // Atributo personalizado agregado en eventoCategorias.js:
     const categoriaActiva = galeria.dataset.categoria;
     // Cargamos la imagen: Con una nueva funcion:
-    sliceClick(id, categoriaActiva);
+    slideClick(id, categoriaActiva);
   }
 });

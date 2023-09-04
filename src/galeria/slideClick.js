@@ -2,7 +2,7 @@ import dataFotos from '../data/fotos';
 import { cargarImagen } from './cargarImagenActiva';
 
 // Funcion para cargar la imagen del slice en la galeria:
-const sliceClick = (id, categoriaActiva) => {
+const slideClick = (id, categoriaActiva) => {
   // console.log(id);
   // console.log(categoriaActiva);
 
@@ -29,4 +29,4 @@ const sliceClick = (id, categoriaActiva) => {
   });
 };
 
-export default sliceClick;
+export default slideClick;

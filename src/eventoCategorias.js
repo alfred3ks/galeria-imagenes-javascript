@@ -28,7 +28,7 @@ contenedorCategorias.addEventListener('click', (e) => {
 
     // Asi sacamos las fotos desde data:
     const fotos = dataFotos.fotos[categoriaActiva];
-    console.log(fotos);
+    // console.log(fotos);
 
     // Cargamos la imagen activa a la galeria:
     const { id, nombre, ruta, descripcion } = fotos[0];

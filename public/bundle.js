@@ -531,6 +531,40 @@ const cargarImagen = (id, nombre, ruta, descripcion) => {
     '.galeria__descripcion-imagen-activa'
   );
   descriptionImagen.innerText = descripcion;
+
+  // 📌 Agregamos lógica para cambiar borde de la imagen activa:
+  const categoriaActual = galeria$3.dataset.categoria;
+  // console.log(categoriaActual);
+
+  const fotos = dataFotos.fotos[categoriaActual];
+  // console.log(fotos);
+
+  // Leemos las fotos de la BD:
+  let indexImagenActual;
+  fotos.forEach((foto, index) => {
+    if (foto.id === id) {
+      // console.log(foto);
+      // console.log(index);
+      indexImagenActual = index;
+      // console.log(indexImagenActual);
+    }
+  });
+
+  // Marcamos la imagen del carousel como activa:
+  if (galeria$3.querySelectorAll('.galeria__carousel-slide').length > 0) {
+    // eliminamos la clase active de cualquier slide:
+    galeria$3
+      .querySelector('.galeria__carousel-slide--active')
+      .classList.remove('galeria__carousel-slide--active');
+
+    // Ahora accedemos a todas las imagenes del carousel: Retorna un NodeList:
+    const imageSlide = galeria$3.querySelectorAll('.galeria__carousel-slide');
+    // console.log(imageSlide);
+    // console.log(imageSlide[indexImagenActual]);
+    imageSlide[indexImagenActual].classList.add(
+      'galeria__carousel-slide--active'
+    );
+  }
 };
 
 /*
@@ -560,7 +594,7 @@ contenedorCategorias.addEventListener('click', (e) => {
 
     // Asi sacamos las fotos desde data:
     const fotos = dataFotos.fotos[categoriaActiva];
-    console.log(fotos);
+    // console.log(fotos);
 
     // Cargamos la imagen activa a la galeria:
     const { id, nombre, ruta, descripcion } = fotos[0];
@@ -604,7 +638,7 @@ const cerrarGaleria = () => {
 };
 
 // Funcion para cargar la imagen del slice en la galeria:
-const sliceClick = (id, categoriaActiva) => {
+const slideClick = (id, categoriaActiva) => {
   // console.log(id);
   // console.log(categoriaActiva);
 
@@ -651,7 +685,7 @@ galeria.addEventListener('click', (e) => {
   // Con dataset podemos acceder a los atributos personalizados que comienzan con el nombre data-algo:
   // Aqui vemos algo interesante, el ?, si ese elemento tiene la propiedad dataset, lo pongo porque da error si no lo lleva al pulsar sobre otro elemento que no tiene esa propiedad:
   if (botonPulsado?.dataset?.accion === 'cerrar-galeria') {
-    console.log(botonPulsado.dataset.accion);
+    // console.log(botonPulsado.dataset.accion);
 
     // Buscamos dentro de la galeria un boton que tenga esa clase:
     // Aplicamos el estilos para cerrar la galeria: Dos formas aqui directamente o por medio de una función externa:
@@ -668,6 +702,6 @@ galeria.addEventListener('click', (e) => {
     // Atributo personalizado agregado en eventoCategorias.js:
     const categoriaActiva = galeria.dataset.categoria;
     // Cargamos la imagen: Con una nueva funcion:
-    sliceClick(id, categoriaActiva);
+    slideClick(id, categoriaActiva);
   }
 });
