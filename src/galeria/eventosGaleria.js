@@ -4,6 +4,7 @@ Eventos de la Galeria:
 // Accedemos a la galeria:
 const galeria = document.getElementById('galeria');
 import { cargarAnteriorSiguiente } from './cargarImagenActiva';
+import carousel from './carousel';
 import cerrarGaleria from './cerrarGaleria';
 import slideClick from './slideClick';
 
@@ -44,6 +45,7 @@ galeria.addEventListener('click', (e) => {
     slideClick(id, categoriaActiva);
   }
 
+  // - - - Botones Galeria - - -
   // 📌 Accedemos al boton de imagen siguiente:
   if (botonPulsado?.dataset?.accion === 'siguiente-imagen') {
     // console.log('Siguiente');
@@ -54,5 +56,18 @@ galeria.addEventListener('click', (e) => {
   if (botonPulsado?.dataset?.accion === 'anterior-imagen') {
     // console.log('Anterior');
     cargarAnteriorSiguiente('anterior');
+  }
+
+  // - - - Botones Carrusel - - -
+  // 🎯 Accedemos al boton de imagen siguiente del carrusel:
+  if (botonPulsado?.dataset?.accion === 'siguiente-slide') {
+    // console.log('Adelante');
+    carousel('adelante');
+  }
+
+  // 🎯 Accedemos al boton de imagen anterior del carrusel:
+  if (botonPulsado?.dataset?.accion === 'anterior-slide') {
+    // console.log('Atras');
+    carousel('atras');
   }
 });
